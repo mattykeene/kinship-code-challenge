@@ -1,4 +1,3 @@
-// import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Form, Image} from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +11,7 @@ export default function SignIn() {
   const history = useNavigate();
   const buttonRef = useRef(null);
   const SIGN_IN_URL = 'https://secure.petexec.net/api/token';
+  const PROFILE_URL = "https://secure.petexec.net/api/profile";
 
   useEffect(() => {
     if (user !== null) {
@@ -30,7 +30,7 @@ export default function SignIn() {
     formData.append('username', username);
     formData.append('password', password);
     formData.append('grant_type', 'password');
-    formData.append('scope', 'owner_read usercard_read');
+    formData.append('scope', 'owner_read usercard_read usercard_create');
 
     fetch(SIGN_IN_URL, {
       method: "POST",
@@ -41,12 +41,27 @@ export default function SignIn() {
     })
     .then(data => data.json())
     .then((data) => {
-      setUser({
-        accessToken: data.access_token
-      });
+      getCurrentUser(data.access_token)
     })
     .catch((err) => {
       console.log(err)
+    })
+  }
+
+  async function getCurrentUser(accessToken) {
+    const response = await fetch(PROFILE_URL, {
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+    })
+    const parsed = await response.json();
+    setUser({
+      userid: parsed.userid,
+      accesstoken: accessToken,
+      firstname: parsed.firstname,
+      lastname: parsed.lastname,
+      companyname: parsed.companyname
     })
   }
 

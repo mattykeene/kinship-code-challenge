@@ -7,7 +7,7 @@ import UserContext from "../UserContext";
 
 export default function SignIn() {
   const [username, setUsername] = useState("codingchallenge");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("Codingchallenge123!");
   const { user, setUser } = useContext(UserContext);
   const history = useNavigate();
   const buttonRef = useRef(null);
@@ -30,7 +30,7 @@ export default function SignIn() {
     formData.append('username', username);
     formData.append('password', password);
     formData.append('grant_type', 'password');
-    formData.append('scope', 'owner_read');
+    formData.append('scope', 'owner_read usercard_read');
 
     fetch(SIGN_IN_URL, {
       method: "POST",
@@ -42,9 +42,7 @@ export default function SignIn() {
     .then(data => data.json())
     .then((data) => {
       setUser({
-        email: data.email,
-        password: data.password,
-        accessToken: data.accessToken
+        accessToken: data.access_token
       });
     })
     .catch((err) => {

@@ -1,8 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import SignIn from './pages/SignIn';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import SignIn from "./pages/SignIn";
 import UserContext from "./UserContext";
 
 function App() {

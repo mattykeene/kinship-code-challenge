@@ -15,8 +15,8 @@ export default function Navigation() {
         <Navbar.Brand href="/">PetExec™</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            { user && <Nav.Link href="/" onClick={logOut}>Log Out</Nav.Link> }
+          <Nav className="ms-auto" >
+            {user && <Nav.Link style={{ color: "white" }} href="/" onClick={logOut}>Log Out</Nav.Link> }
           </Nav>
         </Navbar.Collapse>
       </Container>

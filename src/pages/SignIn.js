@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Form, Image} from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import UserContext from "../UserContext";
 
@@ -10,12 +10,12 @@ export default function SignIn() {
   const { user, setUser } = useContext(UserContext);
   const history = useNavigate();
   const buttonRef = useRef(null);
-  const SIGN_IN_URL = 'https://secure.petexec.net/api/token';
+  const SIGN_IN_URL = "https://secure.petexec.net/api/token";
   const PROFILE_URL = "https://secure.petexec.net/api/profile";
 
   useEffect(() => {
     if (user !== null) {
-      history('/dashboard');
+      history("/dashboard");
     }
   }, [history, user]);
 
@@ -23,25 +23,26 @@ export default function SignIn() {
     event.preventDefault();
     buttonRef.current.disabled = true;
 
-    const authorizationValue = 'Basic ' + btoa(process.env.REACT_APP_PETEXEC_CLIENT_ID + ':' + process.env.REACT_APP_PETEXEC_CLIENT_SECRET);
+    const authorizationValue = "Basic " + btoa(process.env.REACT_APP_PETEXEC_CLIENT_ID + ":" + process.env.REACT_APP_PETEXEC_CLIENT_SECRET);
 
     let formData = new FormData();
-    
-    formData.append('username', username);
-    formData.append('password', password);
-    formData.append('grant_type', 'password');
-    formData.append('scope', 'owner_read usercard_read usercard_create');
+
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("grant_type", "password");
+    formData.append("scope", "owner_read usercard_create usercard_read usercard_delete");
 
     fetch(SIGN_IN_URL, {
       method: "POST",
-      headers: { 
-        'Authorization': authorizationValue
+      headers: {
+        "Authorization": authorizationValue
       },
       body: formData,
     })
-    .then(data => data.json())
-    .then((data) => {
-      getCurrentUser(data.access_token)
+    .then(response => response.json())
+    .then((response) => {
+      console.log(response)
+      getCurrentUser(response.access_token)
     })
     .catch((err) => {
       console.log(err)
@@ -52,7 +53,7 @@ export default function SignIn() {
     const response = await fetch(PROFILE_URL, {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       },
     })
     const parsed = await response.json();
@@ -61,7 +62,11 @@ export default function SignIn() {
       accesstoken: accessToken,
       firstname: parsed.firstname,
       lastname: parsed.lastname,
-      companyname: parsed.companyname
+      companyname: parsed.companyname,
+      addr1: parsed.addr1,
+      city: parsed.city,
+      state: parsed.state,
+      pawpoints: parsed.pawpoints
     })
   }
 

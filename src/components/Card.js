@@ -1,3 +1,4 @@
+import "../Card.css"
 import { useState } from 'react';
 import Cards from 'react-credit-cards';
 import { Button, Col, Row } from "react-bootstrap";
@@ -25,7 +26,7 @@ export default function Card({ card, onDelete }) {
           />
         </Col>
         <Col md={2}>
-          <Button variant="danger" onClick={ handleShow }>Delete</Button>
+          <Button className="delete-btn" variant="danger" onClick={ handleShow }>Delete</Button>
         </Col>
       </Row>
 

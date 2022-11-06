@@ -4,7 +4,7 @@ Greetings! Thank you for taking the time to review my code challenge, I hope it'
 ## About the Project
 I chose to use Create React App because it's fast and takes very little time to get the ball rolling. The project is styled with Bootstrap 5.
 
-### Dependancies
+### Dependencies
 - Node v18.12.0
 - npm 8.19.2
 - React 18.2.0

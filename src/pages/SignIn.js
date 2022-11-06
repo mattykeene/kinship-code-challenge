@@ -5,8 +5,8 @@ import Navigation from "../components/Navigation";
 import UserContext from "../UserContext";
 
 export default function SignIn() {
-  const [username, setUsername] = useState("codingchallenge");
-  const [password, setPassword] = useState("Codingchallenge123!");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { user, setUser } = useContext(UserContext);
   const history = useNavigate();
   const buttonRef = useRef(null);
@@ -41,7 +41,6 @@ export default function SignIn() {
     })
     .then(response => response.json())
     .then((response) => {
-      console.log(response)
       getCurrentUser(response.access_token)
     })
     .catch((err) => {
@@ -78,7 +77,7 @@ export default function SignIn() {
 
         <Form.Group className="mb-3" controlId="formBasicUserName">
           <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter Username" required value={username} onChange={(event) => setUsername(event.target.value)} />
+          <Form.Control type="text" placeholder="Username" required value={username} onChange={(event) => setUsername(event.target.value)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">

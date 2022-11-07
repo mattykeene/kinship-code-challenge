@@ -4,7 +4,7 @@ import UserContext from "../UserContext";
 
 export default function Profile() {
   const { user } = useContext(UserContext);
-  debugger
+
   return (
     <Col md={6}>
       <Card bg="light" className="mt-5">

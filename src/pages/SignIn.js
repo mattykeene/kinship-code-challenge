@@ -14,7 +14,8 @@ export default function SignIn() {
   const PROFILE_URL = "https://secure.petexec.net/api/profile";
 
   useEffect(() => {
-    if (user !== null) {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user))
       history("/dashboard");
     }
   }, [history, user]);
@@ -43,8 +44,8 @@ export default function SignIn() {
     .then((response) => {
       getCurrentUser(response.access_token)
     })
-    .catch((err) => {
-      console.log(err)
+    .catch((error) => {
+      console.log(error)
     })
   }
 

@@ -6,6 +6,7 @@ export default function Navigation() {
   const { user, setUser } = useContext(UserContext);
 
   function logOut() {
+    localStorage.removeItem("user")
     setUser(null);
   }
 

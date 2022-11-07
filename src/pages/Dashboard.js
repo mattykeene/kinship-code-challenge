@@ -6,25 +6,28 @@ import { useNavigate } from "react-router-dom";
 import Cards from "../components/Cards"
 import Profile from "../components/Profile"
 
-export default function Home() {
-  const { user } = useContext(UserContext);
-  const history = useNavigate();
+export default function Dashboard() {
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (user === null) {
-      history("/");
+    // handle refresh due to context not persisting - ideally this would be held in a session cookie
+    if (!user && localStorage.user) {
+      const localUser = JSON.parse(localStorage.user)
+      setUser(localUser)
     }
-  }, [history, user]);
+  }, [user]);
 
   return (
     <>
-      <Navigation />
-      <Container>
-        <Row>
-          <Profile />
-          <Cards />
-        </Row>
-      </Container>
+        <Navigation />
+        <Container>
+        { user ?
+          <Row>
+            <Profile />
+            <Cards />
+          </Row>
+            : '' }
+        </Container>
     </>
   );
 }

@@ -20,7 +20,7 @@ This project was built with the help of [Create React App](https://github.com/fa
 
 ## Next Steps
 If I were to take this project further I would do a few things:
-- Store the auth token in a cookie so the user can remain logged in between tabs/refreshes. The instructions seemed clear to use the Context API and I didn't want to stray too far from those requirements.
+- Store the auth token in a hashed cookie. The instructions seemed clear to use the Context API and I didn't want to stray too far from those requirements. I set up a bare-bones localStorage solution so the page wouldn't break while refreshing.
 - Abstract all of the API calls into an API service file for better organization.
 - Write tests.
 - Possibly add more styling.
